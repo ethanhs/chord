@@ -27,7 +27,7 @@ public class ItemGroupTabWidget extends ButtonWidget {
     public ItemGroupTabWidget(int x, int y, int selectedTabIndex, AbstractTabbedItemGroup tab, CreativeInventoryScreen screen, Identifier texture) {
         this(x - 24, (y + 12) + (selectedTabIndex * 24), tab.getTabs().get(selectedTabIndex), (btn) -> {
             tab.setSelectedTabIndex(selectedTabIndex);
-            MinecraftClient.getInstance().openScreen(screen);
+            MinecraftClient.getInstance().setScreen(screen);
             ((ItemGroupTabWidget) btn).isSelected = true;
         }, texture);
     }

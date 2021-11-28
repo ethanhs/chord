@@ -44,7 +44,7 @@ public class BoatSpawnNetworkHandler {
             Entity entity = type.create(world);
             if (entity != null) {
 
-                entity.setEntityId(id);
+                entity.setId(id);
                 entity.setUuid(uuid);
                 entity.updatePosition(x, y, z);
                 entity.updateTrackedPosition(x, y, z);

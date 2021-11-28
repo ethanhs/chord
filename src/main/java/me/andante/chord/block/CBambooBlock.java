@@ -11,6 +11,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.tick.OrderedTick;
 
 import java.util.Random;
 import java.util.function.Supplier;
@@ -54,7 +55,7 @@ public class CBambooBlock extends BambooBlock {
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
         if (!state.canPlaceAt(world, pos)) {
-            world.getBlockTickScheduler().schedule(pos, this, 1);
+            world.getBlockTickScheduler().scheduleTick(OrderedTick.create(this, pos));
         }
 
         if (direction == Direction.UP && newState.isOf(this.getBambooBlock()) && newState.get(AGE) > state.get(AGE)) {

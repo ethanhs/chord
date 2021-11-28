@@ -27,13 +27,15 @@ public abstract class AbstractTabbedItemGroup extends ItemGroup {
     private final List<ItemGroupTab> tabs = Lists.newArrayList();
     private int selectedTabIndex = 0;
     private boolean initialized = false;
+    private final Text translationKey;
 
-    protected AbstractTabbedItemGroup(Identifier id) {
+    protected AbstractTabbedItemGroup(Identifier id, String string) {
         super(AbstractTabbedItemGroup.getItemGroupIndex(), id.getNamespace() + "." + id.getPath());
         this.id = id;
+        this.translationKey = new TranslatableText("itemGroup." + string);
     }
     protected AbstractTabbedItemGroup(String modId) {
-        this(new Identifier(modId, "title"));
+        this(new Identifier(modId, "title"), modId);
     }
 
     private static int getItemGroupIndex() {
@@ -114,8 +116,11 @@ public abstract class AbstractTabbedItemGroup extends ItemGroup {
         return this.initialized;
     }
 
-    @Override
     public Text getTranslationKey() {
-        return this.selectedTabIndex != 0 ? new TranslatableText("itemGroup." + id.getNamespace(), this.getSelectedItemTab().getTranslationKey()) : super.getTranslationKey();
+        if (this.selectedTabIndex != 0) {
+            return new TranslatableText("itemGroup." + id.getNamespace(), this.getSelectedItemTab().getTranslationKey());
+        } else {
+            return this.translationKey;
+        }
     }
 }
