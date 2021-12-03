@@ -4,8 +4,8 @@ import me.andante.chord.block.helper.WoodBlocks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.GrassColors;
 import net.minecraft.client.render.RenderLayer;
@@ -29,7 +29,7 @@ public class CClientUtils {
      * Registers a wood set's boat renderer.
      */
     public static void registerBoatRenderer(WoodBlocks set) {
-        EntityRendererRegistry.INSTANCE.register(set.BOAT_ENTITY, BoatEntityRenderer::new);
+        EntityRendererRegistry.register(set.BOAT_ENTITY, BoatEntityRenderer::new);
     }
 
     /**
