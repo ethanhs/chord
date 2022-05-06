@@ -3,6 +3,7 @@ package me.andante.chord.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ScaffoldingBlock;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FallingBlockEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
@@ -75,7 +76,7 @@ public class CScaffoldingBlock extends ScaffoldingBlock {
         BlockState blockState = state.with(DISTANCE, distance).with(BOTTOM, this.shouldBeBottom(world, pos, distance));
         if (blockState.get(DISTANCE) == 7) {
             if (state.get(DISTANCE) == 7) {
-                world.spawnEntity(new FallingBlockEntity(world, (double)pos.getX() + 0.5D, pos.getY(), (double)pos.getZ() + 0.5D, blockState.with(WATERLOGGED, false)));
+                world.spawnEntity(new FallingBlockEntity(world, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, blockState.with(WATERLOGGED, false)));
             } else {
                 world.breakBlock(pos, true);
             }
@@ -98,5 +99,11 @@ public class CScaffoldingBlock extends ScaffoldingBlock {
      */
     private boolean shouldBeBottom(BlockView world, BlockPos pos, int distance) {
         return distance > 0 && !(world.getBlockState(pos.down()).getBlock() instanceof ScaffoldingBlock);
+    }
+
+    static class FallingBlockEntity extends net.minecraft.entity.FallingBlockEntity {
+        public FallingBlockEntity(ServerWorld world, double v, int y, double v1, BlockState with) {
+            super(EntityType.FALLING_BLOCK, world);
+        }
     }
 }
