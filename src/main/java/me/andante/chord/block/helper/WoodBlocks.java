@@ -14,6 +14,7 @@ import me.andante.chord.entity.boat.CBoatEntity;
 import me.andante.chord.entity.boat.CBoatInfo;
 import me.andante.chord.item.CBoatItem;
 import me.andante.chord.util.CSignType;
+import me.andante.chord.util.CTagUtil;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.mininglevel.v1.FabricMineableTags;
@@ -156,7 +157,7 @@ public class WoodBlocks {
             .build().forEach(
                 (base, result) -> UseBlockCallback.EVENT.register(
                     (player, world, hand, hit) -> {
-                        if (AXES.stream().anyMatch((tag) -> tag.contains(player.getStackInHand(hand).getItem().getRegistryEntry())) && world.getBlockState(hit.getBlockPos()).getBlock() == base) {
+                        if (CTagUtil.tagContainsItem(ConventionalItemTags.AXES, player.getStackInHand(hand).getItem()) && world.getBlockState(hit.getBlockPos()).getBlock() == base) {
                             BlockPos blockPos = hit.getBlockPos();
                             BlockState blockState = world.getBlockState(blockPos);
 
