@@ -1,5 +1,6 @@
 package me.andante.chord.block.helper;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -80,7 +81,7 @@ public class WoodBlocks {
 
     public final EntityType<CBoatEntity> BOAT_ENTITY;
 
-    public final Stream<RegistryEntryList.Named<Item>> AXES = Registry.ITEM.getEntryList(ConventionalItemTags.AXES).stream();
+    public final Optional<RegistryEntryList.Named<Item>> AXES = Registry.ITEM.getEntryList(ConventionalItemTags.AXES);
 
     private WoodBlocks(String modId, final String id, ItemGroup itemGroup, boolean flammable, int leafItemColor, SaplingGenerator saplingGenerator, BoatEntity.Type boatType, PressurePlateBlock.ActivationRule pressurePlateActivationRule) {
         this.id = id;
@@ -155,7 +156,7 @@ public class WoodBlocks {
             .build().forEach(
                 (base, result) -> UseBlockCallback.EVENT.register(
                     (player, world, hand, hit) -> {
-                        if (AXES.anyMatch((tag) -> tag.contains(player.getStackInHand(hand).getItem().getRegistryEntry())) && world.getBlockState(hit.getBlockPos()).getBlock() == base) {
+                        if (AXES.stream().anyMatch((tag) -> tag.contains(player.getStackInHand(hand).getItem().getRegistryEntry())) && world.getBlockState(hit.getBlockPos()).getBlock() == base) {
                             BlockPos blockPos = hit.getBlockPos();
                             BlockState blockState = world.getBlockState(blockPos);
 
