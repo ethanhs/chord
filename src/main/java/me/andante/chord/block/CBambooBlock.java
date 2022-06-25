@@ -66,17 +66,17 @@ public class CBambooBlock extends BambooBlock {
     }
 
     @Override
-    protected void updateLeaves(BlockState state, World world, BlockPos pos, Random random, int height) {
-        BlockState blockStateDown = world.getBlockState(pos.down());
-        BlockPos blockPosDown2 = pos.down(2);
+    protected void updateLeaves(BlockState blockState, World world, BlockPos blockPos, net.minecraft.util.math.random.Random random, int i) {
+        BlockState blockStateDown = world.getBlockState(blockPos.down());
+        BlockPos blockPosDown2 = blockPos.down(2);
         BlockState blockStateDown2 = world.getBlockState(blockPosDown2);
         BambooLeaves bambooLeaves = BambooLeaves.NONE;
-        if (height >= 1) {
+        if (i >= 1) {
             if (blockStateDown.isOf(this.getBambooBlock()) && blockStateDown.get(LEAVES) != BambooLeaves.NONE) {
                 if (blockStateDown.isOf(this.getBambooBlock()) && blockStateDown.get(LEAVES) != BambooLeaves.NONE) {
                     bambooLeaves = BambooLeaves.LARGE;
                     if (blockStateDown2.isOf(this.getBambooBlock())) {
-                        world.setBlockState(pos.down(), blockStateDown.with(LEAVES, BambooLeaves.SMALL), 3);
+                        world.setBlockState(blockPos.down(), blockStateDown.with(LEAVES, BambooLeaves.SMALL), 3);
                         world.setBlockState(blockPosDown2, blockStateDown2.with(LEAVES, BambooLeaves.NONE), 3);
                     }
                 }
@@ -85,9 +85,9 @@ public class CBambooBlock extends BambooBlock {
             }
         }
 
-        int age = state.get(AGE) != 1 && !blockStateDown2.isOf(this.getBambooBlock()) ? 0 : 1;
-        int stage = (height < 11 || random.nextFloat() >= 0.25F) && height != 15 ? 0 : 1;
-        world.setBlockState(pos.up(), this.getDefaultState().with(AGE, age).with(LEAVES, bambooLeaves).with(STAGE, stage), 3);
+        int age = blockState.get(AGE) != 1 && !blockStateDown2.isOf(this.getBambooBlock()) ? 0 : 1;
+        int stage = (i < 11 || random.nextFloat() >= 0.25F) && i != 15 ? 0 : 1;
+        world.setBlockState(blockPos.up(), this.getDefaultState().with(AGE, age).with(LEAVES, bambooLeaves).with(STAGE, stage), 3);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

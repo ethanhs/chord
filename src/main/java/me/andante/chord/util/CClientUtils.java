@@ -29,7 +29,7 @@ public class CClientUtils {
      * Registers a wood set's boat renderer.
      */
     public static void registerBoatRenderer(WoodBlocks set) {
-        EntityRendererRegistry.register(set.BOAT_ENTITY, BoatEntityRenderer::new);
+        EntityRendererRegistry.register(set.BOAT_ENTITY, (context) -> new BoatEntityRenderer(context, true));
     }
 
     /**

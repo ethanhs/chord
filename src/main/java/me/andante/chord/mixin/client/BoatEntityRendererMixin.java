@@ -19,14 +19,14 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 public abstract class BoatEntityRendererMixin {
     @Shadow public abstract Identifier getTexture(BoatEntity boatEntity);
 
-    @ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/model/BoatEntityModel;getLayer(Lnet/minecraft/util/Identifier;)Lnet/minecraft/client/render/RenderLayer;"))
+    @ModifyArgs(method = "render(Lnet/minecraft/entity/vehicle/BoatEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/model/BoatEntityModel;getLayer(Lnet/minecraft/util/Identifier;)Lnet/minecraft/client/render/RenderLayer;"))
     private void renderTexture(Args args, BoatEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertices, int light) {
         if (entity instanceof CBoatEntity) {
             args.set(0, this.getTexture(entity));
         }
     }
 
-    @Inject(method = "getTexture", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getTexture(Lnet/minecraft/entity/vehicle/BoatEntity;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
     private void getTexture(BoatEntity entity, CallbackInfoReturnable<Identifier> cir) {
         if (entity instanceof CBoatEntity) {
             cir.setReturnValue(((CBoatEntity) entity).getBoatTexture());

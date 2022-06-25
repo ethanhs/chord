@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ScaffoldingBlock;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.FallingBlockEntity;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.server.world.ServerWorld;
@@ -13,8 +13,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
-
-import java.util.Random;
 
 /**
  * Modified version of vanilla's {@link ScaffoldingBlock} that supports non-vanilla scaffolding block definitions
@@ -71,21 +69,23 @@ public class CScaffoldingBlock extends ScaffoldingBlock {
      * @see ScaffoldingBlock#scheduledTick(BlockState, ServerWorld, BlockPos, Random)
      */
     @Override
-    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        int distance = calculateDistance(world, pos); // modified
-        BlockState blockState = state.with(DISTANCE, distance).with(BOTTOM, this.shouldBeBottom(world, pos, distance));
+    public void scheduledTick(BlockState blockState, ServerWorld serverWorld, BlockPos blockPos, Random random) {
+        int distance = calculateDistance(serverWorld, blockPos); // modified
+        BlockState state = blockState.with(DISTANCE, distance).with(BOTTOM, this.shouldBeBottom(serverWorld, blockPos, distance));
         if (blockState.get(DISTANCE) == 7) {
             if (state.get(DISTANCE) == 7) {
-                world.spawnEntity(new FallingBlockEntity(world, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, blockState.with(WATERLOGGED, false)));
+                serverWorld.spawnEntity(new FallingBlockEntity(serverWorld, (double) blockPos.getX() + 0.5D, blockPos.getY(), (double) blockPos.getZ() + 0.5D, blockState.with(WATERLOGGED, false)));
             } else {
-                world.breakBlock(pos, true);
+                serverWorld.breakBlock(blockPos, true);
             }
-        } else if (state != blockState) {
-            world.setBlockState(pos, blockState, 3);
+        } else if (blockState != state) {
+            serverWorld.setBlockState(blockPos, state, 3);
         }
+        super.scheduledTick(state, serverWorld, blockPos, random);
     }
 
     /**
+     *
      * Modified version of {@link ScaffoldingBlock#canPlaceAt(BlockState, WorldView, BlockPos)} to use {@link CScaffoldingBlock#calculateDistance(BlockView, BlockPos)}
      * @see ScaffoldingBlock#canPlaceAt(BlockState, WorldView, BlockPos)
      */

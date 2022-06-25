@@ -1,12 +1,6 @@
 package me.andante.chord.block.helper;
 
-import java.util.Optional;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
-
 import com.google.common.collect.ImmutableMap;
-
-import com.mojang.datafixers.types.templates.Named;
 import me.andante.chord.block.CSignBlock;
 import me.andante.chord.block.CWallSignBlock;
 import me.andante.chord.block.vanilla.*;
@@ -15,21 +9,17 @@ import me.andante.chord.entity.boat.CBoatInfo;
 import me.andante.chord.item.CBoatItem;
 import me.andante.chord.util.CSignType;
 import me.andante.chord.util.CTagUtil;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.fabricmc.fabric.api.mininglevel.v1.FabricMineableTags;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
-import net.fabricmc.fabric.impl.tag.convention.TagRegistration;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.block.sapling.OakSaplingGenerator;
 import net.minecraft.block.sapling.SaplingGenerator;
-import net.minecraft.data.server.AbstractTagProvider;
 import net.minecraft.datafixer.TypeReferences;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -38,17 +28,16 @@ import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.item.*;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.tag.ItemTags;
-import net.minecraft.tag.Tag;
-import net.minecraft.tag.TagKey;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.SignType;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryEntryList;
+
+import java.util.Optional;
+import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
 public class WoodBlocks {

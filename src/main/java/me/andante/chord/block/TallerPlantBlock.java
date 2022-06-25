@@ -6,11 +6,7 @@ import me.andante.chord.block.enums.TripleBlockPart;
 import me.andante.chord.state.property.CProperties;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.PlantBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,6 +17,9 @@ import net.minecraft.state.property.EnumProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
@@ -131,15 +130,18 @@ public class TallerPlantBlock extends PlantBlock {
         builder.add(PART);
     }
 
-    @Override
-    public AbstractBlock.OffsetType getOffsetType() {
-        return AbstractBlock.OffsetType.XZ;
-    }
-
     @SuppressWarnings("deprecation")
     @Environment(EnvType.CLIENT)
     @Override
     public long getRenderingSeed(BlockState state, BlockPos pos) {
         return MathHelper.hashCode(pos.getX(), pos.down(state.get(PART) == TripleBlockPart.LOWER ? 0 : 1).getY(), pos.getZ());
     }
+
+    @Override
+    public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos blockPos, ShapeContext shapeContext) {
+        Vec3d vec3d = blockState.getModelOffset(blockView, blockPos);
+        return super.getOutlineShape(blockState, blockView, blockPos, shapeContext).offset(vec3d.x, vec3d.y, vec3d.z);
+    }
+
+
 }

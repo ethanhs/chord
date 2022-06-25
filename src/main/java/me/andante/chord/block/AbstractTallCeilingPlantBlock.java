@@ -96,11 +96,6 @@ public abstract class AbstractTallCeilingPlantBlock extends PlantBlock {
         }
     }
 
-    @Override
-    public OffsetType getOffsetType() {
-        return OffsetType.XZ;
-    }
-
     @SuppressWarnings("deprecation")
     @Environment(EnvType.CLIENT)
     @Override
