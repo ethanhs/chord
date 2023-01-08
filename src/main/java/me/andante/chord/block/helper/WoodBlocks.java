@@ -69,7 +69,7 @@ public class WoodBlocks {
 
     public final EntityType<CBoatEntity> BOAT_ENTITY;
 
-    private WoodBlocks(String modId, final String id, ItemGroup itemGroup, boolean flammable, int leafItemColor, SaplingGenerator saplingGenerator, BoatEntity.Type boatType, PressurePlateBlock.ActivationRule pressurePlateActivationRule) {
+    public WoodBlocks(String modId, final String id, ItemGroup itemGroup, boolean flammable, int leafItemColor, SaplingGenerator saplingGenerator, BoatEntity.Type boatType, PressurePlateBlock.ActivationRule pressurePlateActivationRule) {
         this.id = id;
         this.modId = modId;
         this.itemGroup = itemGroup;
