@@ -22,7 +22,7 @@ import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
 public class CBoatItem extends Item {
-    private static final Predicate<Entity> RIDERS = EntityPredicates.EXCEPT_SPECTATOR.and(Entity::collides);
+    private static final Predicate<Entity> RIDERS = EntityPredicates.EXCEPT_SPECTATOR;
     private final Supplier<EntityType<CBoatEntity>> boatSupplier;
 
     public CBoatItem(Supplier<EntityType<CBoatEntity>> boatSupplier, Item.Settings settings) {
