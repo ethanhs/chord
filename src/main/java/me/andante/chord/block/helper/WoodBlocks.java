@@ -73,7 +73,7 @@ public class WoodBlocks {
 
     public final Optional<RegistryEntryList.Named<Item>> AXES = Registry.ITEM.getEntryList(ConventionalItemTags.AXES);
 
-    private WoodBlocks(String modId, final String id, ItemGroup itemGroup, boolean flammable, int leafItemColor, SaplingGenerator saplingGenerator, BoatEntity.Type boatType, PressurePlateBlock.ActivationRule pressurePlateActivationRule) {
+    public WoodBlocks(String modId, final String id, ItemGroup itemGroup, boolean flammable, int leafItemColor, SaplingGenerator saplingGenerator, BoatEntity.Type boatType, PressurePlateBlock.ActivationRule pressurePlateActivationRule) {
         this.id = id;
         this.modId = modId;
         this.itemGroup = itemGroup;
